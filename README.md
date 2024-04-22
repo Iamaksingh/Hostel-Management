@@ -5,5 +5,4 @@
 
 This is the readme for Hostel Management Software
 
-
-The login page is in project folder
+login,dashboard,fee payment pages are added to root directory
