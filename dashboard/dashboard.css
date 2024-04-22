@@ -1,0 +1,107 @@
+body
+{
+    background:"background.jpg";
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sign_out_greeting
+{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 30px;
+}
+
+.sign_out_greeting a
+{
+    text-decoration: none;
+    color: #74b5e4;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size:20px;
+}
+.sign_out_greeting a:hover
+{
+    color:rgb(120, 36, 198);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size:20px;
+}
+
+
+.homepage
+{
+    display: block;
+    margin-left: 40px;
+}
+
+h1
+{
+    color:rgb(120, 36, 198);
+    font-size: 50px;
+}
+
+h3
+{
+    color:#74b5e4;  
+    font-size: 25px;
+}
+
+/* this this is the main div */
+.Dashboard
+{
+    display: flex;
+    column-gap: 20px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+}
+/* used for use cards */
+.card
+{
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    border-style:solid;
+    padding: 6px;
+    border-radius: 10px;
+    border-color: rgb(186, 145, 224);
+}
+.card .txt
+{
+    display: none;
+}
+
+/* use cards on mouse hover */
+.card:hover
+{
+    width: 300px;
+    height: 300px;
+    border-style:double;
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background-color: rgb(203, 176, 228);
+    background: linear-gradient(to left, rgb(203,176,228) , rgb(107, 170, 221) ) right;
+    background-size: 200%;
+    transition: .5s ease-out;
+}
+.card:hover img
+{
+    opacity: 0;
+    z-index: 0;
+}
+.card:hover .txt 
+{
+    color: bisque;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: block;
+    position: relative;
+    margin-top: -57%;
+    margin-left:20% ;
+    font-size: 30px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
