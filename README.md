@@ -5,4 +5,4 @@
 
 This is the readme for Hostel Management Software
 
-login,dashboard,fee payment,cleaning ticket pages are added to root directory
+login,room allotment,dashboard,fee payment,cleaning ticket pages are added to root directory
