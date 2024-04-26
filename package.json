@@ -1,0 +1,15 @@
+{
+  "name": "hostel-management",
+  "version": "1.0.0",
+  "description": "This is a simple web solution to the problems faced by the students and the faculty during the allocation of the hostel of the students",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
