@@ -2,15 +2,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const Room = require('./src/models/room');
+const Student = require('./src/models/student');
 const app = express();
+const loginController = require('./src/controllers/loginController');
 const roomController = require('./src/controllers/roomController')
 mongoose.connect('mongodb+srv://parth:12341234@cluster0.z0ftypz.mongodb.net/hostel_management?retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
 });
+app.use(express.json());
 
 console.log("connected to mongoDB");
 
-router.get('/roomAllotPage1', roomController.getAllRooms)
+app.post('/',loginController.getLogin);
+
+app.get('/roomAllotPage', roomController.getAllRooms)
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
@@ -49,6 +54,26 @@ const insertMockData = async () => {
         console.error('Error inserting mock data:', err);
     }
 };
+
+const mockStudent = [
+    {name:'Parth Taggar',rollno:102217218,email:'ptaggar_be22@thapar.edu',password:'Penroseconjectrue',allotedRoom:'A1'},
+    {name:'Ankit Kumar Mittal',rollno:102217217,email:'amittal5_be22@thapar.edu',password:'12341234',allotedRoom:null},
+    {name:'Aditya Kumar Singh',rollno:102217222,email:'Asingh39_be22@thapar.edu',password:'12341234',allotedRoom:'D20'},
+
+];
+
+const insertMockStudents = async ()=>{
+    try {
+        await Student.deleteMany();
+        await Student.insertMany(mockStudent);
+
+        console.log(mockStudent);
+    } catch (error) {
+        console.log('Error inserting students:',error);
+    }
+};
+
+// insertMockStudents();
 
 // Call the function to insert mock data
 // insertMockData();

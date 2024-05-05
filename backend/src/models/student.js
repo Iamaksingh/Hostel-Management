@@ -7,7 +7,7 @@ const studentSchema = new mongoose.Schema({
         required: true,
     },
     rollno: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
@@ -25,8 +25,8 @@ const studentSchema = new mongoose.Schema({
         required: false,
         unique: true
     }
-});
+},{collection:'students'});
 
-const Stundent = mongoose.model('Student', userSchema);
+const Stundent = mongoose.model('Student', studentSchema);
 
 module.exports = Stundent;

@@ -11,7 +11,7 @@ const roomSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
     }
-});
+},{collection:'rooms'});
 
 const Room = mongoose.model('Room', roomSchema);
 
