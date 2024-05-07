@@ -6,6 +6,9 @@ const Student = require('./src/models/student');
 const app = express();
 const loginController = require('./src/controllers/loginController');
 const roomController = require('./src/controllers/roomController')
+const cleaningController = require('./src/controllers/cleaningController');
+const complaintController = require('./src/controllers/complaintController');
+
 mongoose.connect('mongodb+srv://parth:12341234@cluster0.z0ftypz.mongodb.net/hostel_management?retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
 });
@@ -15,7 +18,10 @@ console.log("connected to mongoDB");
 
 app.post('/',loginController.getLogin);
 
-app.get('/roomAllotPage', roomController.getAllRooms)
+app.get('/roomAllotPage', roomController.getAllRooms);
+
+app.post('/cleaningPage',cleaningController.reqCleaning);
+app.post ('/complaintPage',complaintController.reqComplaint);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
