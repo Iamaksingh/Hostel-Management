@@ -1,7 +1,38 @@
 import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 import './Login.modules.css'; // Import your CSS file
-import loginImage from './login.jpg'
+import loginImage from './login.jpg';
+
+
 function LoginPage() {
+
+    const [rollno,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+    const navigate = useNavigate();
+
+    async function onSubmit(e){
+        e.preventDefault();
+
+        try {
+            await axios.post('http://localhost:3001/',{
+                rollno,password
+            }).then(result =>{
+                console.log(result.data.message)
+                if(result.data.message ==='Success'){
+                    console.log('Logined');
+                    navigate('/dashboard');}
+                else if(result.data.message ==='Wrong Email or Password')
+                    navigate('/');
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
     return (
         <div className="loginpage">
             <div className="image">
@@ -10,13 +41,13 @@ function LoginPage() {
             <div className="login_credentials">
                 <h1>Hostel Management</h1>
                 <h3>Enter your login credentials</h3>
-                <form action="">
+                <form action="POST">
                     <label htmlFor="first">Username:</label>
-                    <input type="text" id="first" name="first" placeholder="Enter your Username" required />
+                    <input type="rollno" id="first" onChange={(e)=>{setEmail(e.target.value)}} name="first" placeholder="Enter your Username" required />
                     <label htmlFor="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your Password" required />
+                    <input type="password" id="password" onChange={(e)=>{setPassword(e.target.value)}} name="password" placeholder="Enter your Password" required />
                     <div className="wrap">
-                        <button type="submit">Submit</button>
+                        <button type="submit" onClick={onSubmit}>Submit</button>
                     </div>
                 </form>
                 <p>Forgot Password?<a href="#" style={{textDecoration: 'none'}}>reset your password</a></p>
