@@ -1,18 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
+const cors = require('cors');
 const Room = require('./src/models/room');
 const Student = require('./src/models/student');
-const app = express();
 const loginController = require('./src/controllers/loginController');
 const roomController = require('./src/controllers/roomController')
 const cleaningController = require('./src/controllers/cleaningController');
 const complaintController = require('./src/controllers/complaintController');
 
+const app = express();
+app.use(express.json());
+app.use(cors());
+
 mongoose.connect('mongodb+srv://parth:12341234@cluster0.z0ftypz.mongodb.net/hostel_management?retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
 });
-app.use(express.json());
 
 console.log("connected to mongoDB");
 
