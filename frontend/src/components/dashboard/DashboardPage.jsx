@@ -25,7 +25,7 @@ function Dashboard() {
 
       <div className="Dashboard">
         <div className="card" id="room_allot_button">
-          <a href="#">
+          <a href="/roomAllotPage">
             <img src={AllotRoomImg} height="300px" width="300px" />
           </a>
           <p className="txt">
@@ -35,13 +35,13 @@ function Dashboard() {
           </p>
         </div>
         <div className="card" id="cleaning">
-          <a href="#">
+          <a href="/cleaningPage">
             <img src={CleaningImg} height="300px" width="300px" />
           </a>
           <p className="txt">Cleaning</p>
         </div>
         <div className="card" id="fees_payment">
-          <a href="#">
+          <a href="feesPage">
             <img src={FeesPayImg} height="300px" width="300px" />
           </a>
           <p className="txt">
@@ -51,7 +51,7 @@ function Dashboard() {
           </p>
         </div>
         <div className="card" id="complaint">
-          <a href="#">
+          <a href="/complaintPage">
             <img src={ElecrtricCompImg} height="300px" width="300px" />
           </a>
           <p className="txt">Complaints</p>
