@@ -14,7 +14,7 @@ function RoomAllotment() {
     useEffect(() => {
         async function getRoomData() {
             try {
-                const response = await axios.get('https://hostel-management-blond.vercel.app/roomAllotPage');
+                const response = await axios.get('https://localhost:3001/roomAllotPage');
                 setResponse(response.data);
             } catch (error) {
                 console.log(error);
@@ -39,7 +39,7 @@ function RoomAllotment() {
             }
 
             // Send selected room to backend
-            await axios.post('https://hostel-management-blond.vercel.app/roomAllotPage/',  {selectedRoom} ).then(
+            await axios.post('https://localhost:3001/roomAllotPage/',  {selectedRoom} ).then(
                 result => {
                     if (result.data.message === 'Room Alloted successfully') {
                         alert('Room has been alloted');

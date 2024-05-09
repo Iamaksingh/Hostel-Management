@@ -15,7 +15,7 @@ function CleaningPage() {
         e.preventDefault();
 
         try {
-            await axios.post('https://hostel-management-blond.vercel.app/cleaningPage',{
+            await axios.post('https://localhost:3001/cleaningPage',{
                 name,room
             }).then(result=>{
                 console.log(result.data.message);
