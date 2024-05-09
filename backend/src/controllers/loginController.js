@@ -1,4 +1,5 @@
 const Login = require('../models/student');
+const Session = require('../models/login');
 const bcrypt = require('bcrypt');
 
 exports.getLogin = async (req, res) => {
@@ -18,6 +19,8 @@ exports.getLogin = async (req, res) => {
         const passwordMatch = password==login.password;
         if (passwordMatch) {
             console.log('Login success');
+            await Session.deleteMany();
+            await Session.insertMany({rollno:rollno,logined:true})
             return res.status(200).json({'message':'Success'});
         } else {
             console.log('Wrong Password');

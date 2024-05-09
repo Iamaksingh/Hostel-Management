@@ -28,6 +28,7 @@ console.log("connected to mongoDB");
 app.post('/',loginController.getLogin);
 
 app.get('/roomAllotPage', roomController.getAllRooms);
+app.post('/roomAllotPage',roomController.allotRoom);
 
 app.post('/cleaningPage',cleaningController.reqCleaning);
 app.post ('/complaintPage',complaintController.reqComplaint);

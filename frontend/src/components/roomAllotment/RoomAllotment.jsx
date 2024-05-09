@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './RoomAllotment.modules.css'; // Import your CSS file
 import RoomAllotImg from './room_allocation.jpg';
 
 function RoomAllotment() {
     const [response, setResponse] = useState('');
     const [selectedRoom, setSelectedRoom] = useState('');
+    const [clickedRoom, setClickedRoom] = useState('');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function getRoomData() {
@@ -22,17 +26,30 @@ function RoomAllotment() {
 
     const handleRoomSelection = (roomNo) => {
         setSelectedRoom(roomNo);
+        setClickedRoom(roomNo);
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
+            console.log('reached here');
             if (!selectedRoom) {
                 console.log('Please select a room before submitting');
                 return;
             }
 
             // Send selected room to backend
-            await axios.post('http://localhost:3001/roomAllotPage', {selectedRoom });
+            await axios.post('http://localhost:3001/roomAllotPage/',  {selectedRoom} ).then(
+                result => {
+                    if (result.data.message === 'Room Alloted successfully') {
+                        alert('Room has been alloted');
+                        navigate('/dashboard');
+                    } else if (result.data.message === 'Room already alloted') {
+                        alert('User has already been alloted a room');
+                        navigate('/dashboard');
+                    }
+                }
+            );
             console.log('Selected room sent to backend:', selectedRoom);
             // You can add further logic here if needed
         } catch (error) {
@@ -52,15 +69,16 @@ function RoomAllotment() {
                 }
             }
 
+            let style = { backgroundColor: 'white' };
             if (alloted) {
-                buttons.push(
-                    <button key={`${block}${i}`} className="room" onClick={() => console.log('Already alloted')} style={{ color: 'red' }}>{block}{i}</button>
-                );
-            } else {
-                buttons.push(
-                    <button key={`${block}${i}`} className="room" onClick={() => handleRoomSelection(`${block}${i}`)}>{block}{i}</button>
-                );
+                style.color = 'red';
+            } else if (clickedRoom === `${block}${i}`) {
+                style.color = 'yellow';
             }
+
+            buttons.push(
+                <button key={`${block}${i}`} className="room" onClick={() => handleRoomSelection(`${block}${i}`)} style={style}>{block}{i}</button>
+            );
         }
         return buttons;
     };
