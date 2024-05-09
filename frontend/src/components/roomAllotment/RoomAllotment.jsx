@@ -1,8 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './RoomAllotment.modules.css'; // Import your CSS file
 import RoomAllotImg from './room_allocation.jpg';
 
 function RoomAllotment() {
+    const [response, setResponse] = useState('');
+    const [selectedRoom, setSelectedRoom] = useState('');
+
+    useEffect(() => {
+        async function getRoomData() {
+            try {
+                const response = await axios.get('http://localhost:3001/roomAllotPage');
+                setResponse(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getRoomData();
+    }, []);
+
+    const handleRoomSelection = (roomNo) => {
+        setSelectedRoom(roomNo);
+    };
+
+    const handleSubmit = async () => {
+        try {
+            if (!selectedRoom) {
+                console.log('Please select a room before submitting');
+                return;
+            }
+
+            // Send selected room to backend
+            await axios.post('http://localhost:3001/roomAllotPage', {selectedRoom });
+            console.log('Selected room sent to backend:', selectedRoom);
+            // You can add further logic here if needed
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    // Function to generate room buttons for a block
+    const generateRoomButtons = (block, count, rooms) => {
+        const buttons = [];
+        for (let i = 1; i <= count; i++) {
+            let alloted = false;
+            for (let j = 0; j < rooms.length; j++) {
+                if (rooms[j].roomNo === `${block}${i}`) {
+                    alloted = rooms[j].alloted;
+                    break;
+                }
+            }
+
+            if (alloted) {
+                buttons.push(
+                    <button key={`${block}${i}`} className="room" onClick={() => console.log('Already alloted')} style={{ color: 'red' }}>{block}{i}</button>
+                );
+            } else {
+                buttons.push(
+                    <button key={`${block}${i}`} className="room" onClick={() => handleRoomSelection(`${block}${i}`)}>{block}{i}</button>
+                );
+            }
+        }
+        return buttons;
+    };
+
     return (
         <div>
             <h1>Select Room</h1>
@@ -12,41 +74,30 @@ function RoomAllotment() {
                     <h3>Block B</h3>
                     <div className="block">
                         {/* Buttons for Block A rooms */}
-                        {generateRoomButtons('A', 30)}
+                        {generateRoomButtons('A', 30, response)}
                     </div>
                     <div className="block">
                         {/* Buttons for Block B rooms */}
-                        {generateRoomButtons('B', 30)}
+                        {generateRoomButtons('B', 30, response)}
                     </div>
                     <h3>Block C</h3>
                     <h3>Block D</h3>
                     <div className="block">
                         {/* Buttons for Block C rooms */}
-                        {generateRoomButtons('C', 30)}
+                        {generateRoomButtons('C', 30, response)}
                     </div>
                     <div className="block">
                         {/* Buttons for Block D rooms */}
-                        {generateRoomButtons('D', 30)}
+                        {generateRoomButtons('D', 30, response)}
                     </div>
                 </div>
                 <div className="img_submit">
                     <img src={RoomAllotImg} alt="Room Allocation" height="680px" width="600px" />
-                    <button className="submit_button">Book Room</button>
+                    <button className="submit_button" onClick={handleSubmit}>Book Room</button>
                 </div>
             </div>
         </div>
     );
-}
-
-// Function to generate room buttons for a block
-function generateRoomButtons(block, count) {
-    const buttons = [];
-    for (let i = 1; i <= count; i++) {
-        buttons.push(
-            <button key={`${block}${i}`} className="room" style={{fontSize:'16px',alignSelf:'start',alignmentBaseline:'central'}}>{block}{i}</button>
-        );
-    }
-    return buttons;
 }
 
 export default RoomAllotment;

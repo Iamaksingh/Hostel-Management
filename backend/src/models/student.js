@@ -24,6 +24,10 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: false,
         unique: true
+    },
+    fees:{
+        type:String,
+        required:false
     }
 },{collection:'students'});
 

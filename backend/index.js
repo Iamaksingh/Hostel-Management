@@ -2,12 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const cors = require('cors');
+const cron = require('node-cron');
+
+const Cleaning = require('./src/models/cleaning');
+const Complaints = require('./src/models/complaints');
 const Room = require('./src/models/room');
 const Student = require('./src/models/student');
+
 const loginController = require('./src/controllers/loginController');
 const roomController = require('./src/controllers/roomController')
 const cleaningController = require('./src/controllers/cleaningController');
 const complaintController = require('./src/controllers/complaintController');
+const feesController = require('./src/controllers/feesController');
 
 const app = express();
 app.use(express.json());
@@ -25,6 +31,15 @@ app.get('/roomAllotPage', roomController.getAllRooms);
 
 app.post('/cleaningPage',cleaningController.reqCleaning);
 app.post ('/complaintPage',complaintController.reqComplaint);
+app.post('/feesPage',feesController.getFees);
+
+cron.schedule('0 0 * * *', async () => {
+    console.log('Running data handling job at midnight...');
+    // delete cleaning data at midnight
+    await Cleaning.deleteMany();
+    // delete Complaints data at midnight
+    await Complaints.deleteMany();
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
