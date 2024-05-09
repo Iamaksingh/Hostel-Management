@@ -15,7 +15,7 @@ function FeesPayment() {
     async function onSubmit(e) {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3001/feesPage',{
+            await axios.post('https://hostel-management-blond.vercel.app/feesPage',{
                 name,email,fees
             })
             .then(result=>{

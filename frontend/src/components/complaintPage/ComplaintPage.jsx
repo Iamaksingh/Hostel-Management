@@ -15,7 +15,7 @@ function ComplaintTicket() {
     async function onSubmit(e){
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3001/complaintPage',{
+            await axios.post('https://hostel-management-blond.vercel.app/complaintPage',{
                 name,room,complaint
             }).then(result=>{
                 console.log(result.data.message);

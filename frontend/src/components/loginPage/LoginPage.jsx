@@ -17,7 +17,7 @@ function LoginPage() {
         e.preventDefault();
 
         try {
-            await axios.post('http://localhost:3001/', {
+            await axios.post('https://hostel-management-blond.vercel.app/', {
                 rollno, password
             }).then(result => {
                 console.log(result.data.message)
